@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+
+  web-prod:
+    container_name: web-prod
+    restart: on-failure
+    build:
+      context: ./services/web/
+      dockerfile: Dockerfile.prod
+      args:
+        NODE_VERSION: ${NODE_VERSION}
+        NGINX_VERSION: ${NGINX_VERSION}
+    ports:
+      - "${NGINX_PORT}:80"
+
+

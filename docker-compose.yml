@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+
+  web-service:
+    container_name: web-service
+    restart: on-failure
+    stdin_open: true
+    build:
+      context: ./services/web/
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: ${NODE_VERSION}
+    volumes:
+      - './services/users:/usr/src/app'
+      - './services/users/package.json:/usr/src/package.json'
+    ports:
+      - "${APP_PORT}:3000"
+    networks:
+      - project_network
+
+networks:
+  project_network:
+    external: true
+
+
+
